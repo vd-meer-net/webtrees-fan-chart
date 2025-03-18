@@ -320,10 +320,10 @@ export default class Person
     {
         let fontSize = this._configuration.fontSize;
 
-        if (children.depth >= (this._configuration.numberOfInnerCircles + 1)) {
+        if (Math.abs(children.depth) >= (this._configuration.numberOfInnerCircles + 1)) {
             fontSize += 1;
         }
 
-        return ((fontSize - children.depth) * this._configuration.fontScale / 100.0);
+        return ((fontSize - Math.abs(children.depth)) * this._configuration.fontScale / 100.0);
     }
 }

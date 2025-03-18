@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Hindi\n"
-"POT-Creation-Date: 2024-12-22 13:03+0100\n"
+"POT-Creation-Date: 2025-03-18 23:12+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Rico Sonntag <mail@ricosonntag.de>\n"
 "Language-Team: \n"
@@ -15,7 +15,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: src\n"
 "X-Poedit-SearchPath-1: resources/views\n"
 
-#: src/Module.php:127 src/Module.php:243
+#: src/Module.php:127 src/Module.php:244
 msgid "Fan chart"
 msgstr "फैन चार्ट"
 
@@ -23,16 +23,16 @@ msgstr "फैन चार्ट"
 msgid "A fan chart of an individual’s ancestors."
 msgstr "किसी व्यक्ती के पूर्वजों का एक फैन चार्ट।"
 
-#: src/Module.php:240 src/Traits/ModuleChartTrait.php:41
+#: src/Module.php:241 src/Traits/ModuleChartTrait.php:41
 #, php-format
 msgid "Fan chart of %s"
 msgstr "%s का फैन चार्ट"
 
-#: src/Module.php:260
+#: src/Module.php:261
 msgid "Use Ctrl + scroll to zoom in the view"
 msgstr "Ctrl + Scroll से ज़ूम इन करें"
 
-#: src/Module.php:261
+#: src/Module.php:262
 msgid "Move the view with two fingers"
 msgstr "दो उंगलियों से दृश्य को स्थानांतरित करें"
 
@@ -50,7 +50,7 @@ msgstr "मृत्यु: %s"
 msgid "Deceased"
 msgstr "मृतक"
 
-#: src/Traits/ModuleConfigTrait.php:99
+#: src/Traits/ModuleConfigTrait.php:103
 #, php-format
 msgid "The preferences for the module “%s” have been updated."
 msgstr ""
@@ -143,6 +143,11 @@ msgid ""
 msgstr ""
 
 #: resources/views/modules/fan-chart/form/layout.phtml:53
+#, fuzzy
+msgid "Show children"
+msgstr "बच्चे दिखाएं"
+
+#: resources/views/modules/fan-chart/form/layout.phtml:64
 msgid "Show parent marriage dates"
 msgstr ""
 

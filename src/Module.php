@@ -177,6 +177,7 @@ class Module extends FanChartModule implements ModuleCustomInterface, ModuleConf
                         'fontScale'               => $validator->integer('fontScale', 100),
                         'hideEmptySegments'       => $validator->boolean('hideEmptySegments', false),
                         'showColorGradients'      => $validator->boolean('showColorGradients', false),
+                        'showChildren'            => $validator->boolean('showChildren', false),
                         'showParentMarriageDates' => $validator->boolean('showParentMarriageDates', false),
                         'innerArcs'               => $validator->integer('innerArcs', 3),
                     ]

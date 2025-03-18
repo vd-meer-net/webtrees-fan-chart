@@ -241,6 +241,29 @@ class Configuration
     }
 
     /**
+     * Returns whether to show children or not.
+     *
+     * @return bool
+     */
+    public function getShowChildren(): bool
+    {
+        if ($this->request->getMethod() === RequestMethodInterface::METHOD_POST) {
+            $validator = Validator::parsedBody($this->request);
+        } else {
+            $validator = Validator::queryParams($this->request);
+        }
+
+        return $validator
+            ->boolean(
+                'showChildren',
+                (bool) $this->module->getPreference(
+                    'default_showChildren',
+                    '0'
+                )
+            );
+    }
+
+    /**
      * Returns whether to show parent marriage dates or not.
      *
      * @return bool

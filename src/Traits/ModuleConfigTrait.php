@@ -82,6 +82,10 @@ trait ModuleConfigTrait
             (string) $configuration->getShowColorGradients()
         );
         $this->setPreference(
+            'default_showChildren',
+            (string) $configuration->getShowChildren()
+        );
+        $this->setPreference(
             'default_showParentMarriageDates',
             (string) $configuration->getShowParentMarriageDates()
         );

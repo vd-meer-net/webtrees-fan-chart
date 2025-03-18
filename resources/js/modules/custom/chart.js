@@ -248,8 +248,26 @@ export default class Chart
      */
     personClick(event, datum)
     {
-        // Trigger either "update" or "redirectToIndividual" method on click depending on person in chart
-        (datum.depth === 0) ? this.redirectToIndividual(datum.data.data.url) : this.update(datum.data.data.updateUrl);
+		if (datum.depth === 0) {
+			this.redirectToIndividual(datum.data.data.url);
+		} else if (this._configuration.showChildren) {
+			// replace last part of the route with the selected person and reload the page
+			const url = new URL(window.location);
+			const route = url.searchParams.get('route');
+
+			if (route) {
+				const decodedRoute = decodeURIComponent(route);
+				const updatedRoute = decodedRoute.replace(/\/[^/]+$/, '/'+datum.data.data.xref); 
+				url.searchParams.set('route', updatedRoute); 
+			} else {
+				// replace last part of the urlpath with the selected person and reload the page
+				url.pathname = url.pathname.replace(/\/[^/]+$/, '/' + datum.data.data.xref);
+			}
+			this.redirectToIndividual(url.href)
+
+		} else {
+			this.update(datum.data.data.updateUrl);
+		}
     }
 
     /**
