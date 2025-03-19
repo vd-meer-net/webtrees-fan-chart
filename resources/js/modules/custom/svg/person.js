@@ -258,7 +258,7 @@ export default class Person
             .outerRadius(this._geometry.outerRadius(datum.depth));
 
         arcGenerator.padAngle(this._configuration.padAngle)
-            .padRadius(this._configuration.padRadius)
+            .padRadius(datum.depth>=0?this._configuration.padRadius:0)
             .cornerRadius(this._configuration.cornerRadius);
 
         // Append arc

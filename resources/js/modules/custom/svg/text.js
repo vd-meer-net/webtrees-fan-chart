@@ -214,7 +214,7 @@ export default class Text
         }
 
         // Marriage date
-        if (this._configuration.showParentMarriageDates && datum.children && (datum.depth < 5)) {
+        if (this._configuration.showParentMarriageDates && datum.children && (datum.depth < 5) && (datum.depth > 0)) {
             const parentId = d3.select(parent.node().parentNode).attr("id");
             const pathId = this.createPathDefinition(parentId, 4, datum);
             const textPath = parent
@@ -710,9 +710,17 @@ export default class Text
             case 6: offset = 0.5; break;
         }
 
+		if (datum.depth < 0) {
+			if ((offset*3.2) > Math.abs(that._geometry.startAngle(datum.depth, datum.x0)-that._geometry.endAngle(datum.depth, datum.x1))*MATH_RAD2DEG) {
+				offset=Math.abs(that._geometry.startAngle(datum.depth, datum.x0)-that._geometry.endAngle(datum.depth, datum.x1))*MATH_RAD2DEG/3.2;
+			}
+				
+		}
+
         let mapIndexToOffset = d3.scaleLinear()
             .domain([0, countElements - 1])
             .range([-offset, offset]);
+
 
         textElements.each(function (ignore, i) {
             const offsetRotate = mapIndexToOffset(i) * that._configuration.fontScale / 100.0;
@@ -721,29 +729,13 @@ export default class Text
             if (datum.depth === 0) {
                 // TODO Depends on font-size
                 d3.select(this).attr("dy", (offsetRotate * 15) + (15 / 2) + "px");
-			} else if (datum.depth !== 0) {
+			} else {
                 d3.select(this).attr("transform", function () {
                     let angle     = (that._geometry.startAngle(datum.depth, datum.x0)+that._geometry.endAngle(datum.depth, datum.x1))/2*MATH_RAD2DEG;
                     let rotate    = angle - (offsetRotate * ((angle > 0 && angle < 180) ? -1 : 1));
                     let translate = (that._geometry.centerRadius(datum.depth) - (that._configuration.colorArcWidth / 2.0));
 
 					if (angle > 0 && angle < 180) {
-                        rotate -= 90;
-                    } else {
-                        translate = -translate;
-                        rotate += 90;
-                    }
-
-                    return "rotate(" + rotate + ") translate(" + translate + ")";
-                });
-            } else {
-                d3.select(this).attr("transform", function () {
-                    let dx        = datum.x1 - datum.x0;
-                    let angle     = that._geometry.scale(datum.x0 + (dx / 2)) * MATH_RAD2DEG;
-                    let rotate    = angle - (offsetRotate * (angle > 0 ? -1 : 1));
-                    let translate = (that._geometry.centerRadius(datum.depth) - (that._configuration.colorArcWidth / 2.0));
-
-                    if (angle > 0) {
                         rotate -= 90;
                     } else {
                         translate = -translate;
