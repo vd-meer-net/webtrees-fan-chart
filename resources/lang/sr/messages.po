@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2024-12-22 13:03+0100\n"
-"PO-Revision-Date: 2024-12-22 13:06+0100\n"
+"POT-Creation-Date: 2025-09-05 23:36+0200\n"
+"PO-Revision-Date: 2025-09-05 23:36+0200\n"
 "Last-Translator: Rico Sonntag <mail@ricosonntag.de>\n"
 "Language-Team: \n"
 "Language: sr\n"
@@ -16,42 +16,28 @@ msgstr ""
 "X-Poedit-SearchPath-0: src\n"
 "X-Poedit-SearchPath-1: resources/views\n"
 
-#: src/Module.php:127 src/Module.php:243
+#: src/Module.php:134 src/Module.php:250
 msgid "Fan chart"
 msgstr "Лепеза графикон"
 
-#: src/Module.php:137
+#: src/Module.php:144
 msgid "A fan chart of an individual’s ancestors."
 msgstr "Лепеза графикон појединчевих предака."
 
-#: src/Module.php:240 src/Traits/ModuleChartTrait.php:41
+#: src/Module.php:247 src/Traits/ModuleChartTrait.php:41
 #, php-format
 msgid "Fan chart of %s"
 msgstr "Лепеза графикон %s"
 
-#: src/Module.php:260
+#: src/Module.php:267
 msgid "Use Ctrl + scroll to zoom in the view"
 msgstr "Користите CTRL + скрол да бисте зумирали приказ"
 
-#: src/Module.php:261
+#: src/Module.php:268
 msgid "Move the view with two fingers"
 msgstr "Померите поглед са два прста"
 
-#: src/Processor/DateProcessor.php:129
-#, php-format
-msgid "Born: %s"
-msgstr "Рођен: %s"
-
-#: src/Processor/DateProcessor.php:133
-#, php-format
-msgid "Died: %s"
-msgstr "Умро: %s"
-
-#: src/Processor/DateProcessor.php:137
-msgid "Deceased"
-msgstr "Преминули"
-
-#: src/Traits/ModuleConfigTrait.php:99
+#: src/Traits/ModuleConfigTrait.php:103
 #, php-format
 msgid "The preferences for the module “%s” have been updated."
 msgstr ""
@@ -144,6 +130,10 @@ msgid ""
 msgstr ""
 
 #: resources/views/modules/fan-chart/form/layout.phtml:53
+msgid "Show children"
+msgstr "Прикажи децу"
+
+#: resources/views/modules/fan-chart/form/layout.phtml:64
 msgid "Show parent marriage dates"
 msgstr ""
 
@@ -162,6 +152,17 @@ msgstr ""
 #: resources/views/modules/fan-chart/page.phtml:80
 msgid "Hide more options"
 msgstr ""
+
+#, php-format
+#~ msgid "Born: %s"
+#~ msgstr "Рођен: %s"
+
+#, php-format
+#~ msgid "Died: %s"
+#~ msgstr "Умро: %s"
+
+#~ msgid "Deceased"
+#~ msgstr "Преминули"
 
 #~ msgid "Presentation"
 #~ msgstr "Презентација"

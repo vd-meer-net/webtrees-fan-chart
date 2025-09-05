@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2024-12-22 13:03+0100\n"
-"PO-Revision-Date: 2024-12-22 13:04+0100\n"
+"POT-Creation-Date: 2025-09-05 23:24+0200\n"
+"PO-Revision-Date: 2025-09-05 23:25+0200\n"
 "Last-Translator: Josef Prause <josef.prause@gmail.com>\n"
 "Language-Team: Josef Prause josef.prause@gmail.com\n"
 "Language: cs\n"
@@ -16,42 +16,28 @@ msgstr ""
 "X-Poedit-SearchPath-0: src\n"
 "X-Poedit-SearchPath-1: resources/views\n"
 
-#: src/Module.php:127 src/Module.php:243
+#: src/Module.php:134 src/Module.php:250
 msgid "Fan chart"
 msgstr "Vějířový diagram"
 
-#: src/Module.php:137
+#: src/Module.php:144
 msgid "A fan chart of an individual’s ancestors."
 msgstr "Vějíř předků osoby."
 
-#: src/Module.php:240 src/Traits/ModuleChartTrait.php:41
+#: src/Module.php:247 src/Traits/ModuleChartTrait.php:41
 #, php-format
 msgid "Fan chart of %s"
 msgstr "Vějíř předků osoby %s"
 
-#: src/Module.php:260
+#: src/Module.php:267
 msgid "Use Ctrl + scroll to zoom in the view"
 msgstr "Pomocí Ctrl + kolečko zvětšit pohled"
 
-#: src/Module.php:261
+#: src/Module.php:268
 msgid "Move the view with two fingers"
 msgstr "Přemístit pohled dvěma prsty"
 
-#: src/Processor/DateProcessor.php:129
-#, php-format
-msgid "Born: %s"
-msgstr "Narozen/a: %s"
-
-#: src/Processor/DateProcessor.php:133
-#, php-format
-msgid "Died: %s"
-msgstr "Zemřel/a: %s"
-
-#: src/Processor/DateProcessor.php:137
-msgid "Deceased"
-msgstr "Zesnulý/á"
-
-#: src/Traits/ModuleConfigTrait.php:99
+#: src/Traits/ModuleConfigTrait.php:103
 #, php-format
 msgid "The preferences for the module “%s” have been updated."
 msgstr ""
@@ -144,6 +130,10 @@ msgid ""
 msgstr ""
 
 #: resources/views/modules/fan-chart/form/layout.phtml:53
+msgid "Show children"
+msgstr "Zobrazit děti"
+
+#: resources/views/modules/fan-chart/form/layout.phtml:64
 msgid "Show parent marriage dates"
 msgstr "Zobrazit datum sňatku rodičů"
 
@@ -162,6 +152,17 @@ msgstr "Zobrazit další volby"
 #: resources/views/modules/fan-chart/page.phtml:80
 msgid "Hide more options"
 msgstr "Skrýt další volby"
+
+#, php-format
+#~ msgid "Born: %s"
+#~ msgstr "Narozen/a: %s"
+
+#, php-format
+#~ msgid "Died: %s"
+#~ msgstr "Zemřel/a: %s"
+
+#~ msgid "Deceased"
+#~ msgstr "Zesnulý/á"
 
 #~ msgid "Presentation"
 #~ msgstr "Prezentace"
