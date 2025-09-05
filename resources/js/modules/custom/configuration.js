@@ -23,6 +23,7 @@ export default class Configuration
      * @param {number}   fontScale
      * @param {boolean}  hideEmptySegments
      * @param {boolean}  showColorGradients
+	 * @param {boolean}  showChildren
      * @param {boolean}  showParentMarriageDates
      * @param {boolean}  showImages
      * @param {boolean}  showSilhouettes
@@ -36,6 +37,7 @@ export default class Configuration
         fontScale = 100,
         hideEmptySegments = false,
         showColorGradients = false,
+		showChildren = false,
         showParentMarriageDates = false,
         showImages = false,
         showSilhouettes = false,
@@ -86,6 +88,7 @@ export default class Configuration
 
         this._hideEmptySegments  = hideEmptySegments;
         this._showColorGradients = showColorGradients;
+		this._showChildren = showChildren;
         this._showParentMarriageDates = showParentMarriageDates;
         this._showImages = showImages;
         this._showSilhouettes = showSilhouettes;
@@ -127,6 +130,10 @@ export default class Configuration
      */
     get fanDegree()
     {
+		if (showChildren && fanDegree > 210) {
+			return 210;
+        }
+
         return this._fanDegree;
     }
 
@@ -137,8 +144,12 @@ export default class Configuration
      */
     set fanDegree(value)
     {
-        this._fanDegree = value;
-    }
+		if (this._showChildren && value > 210) {
+			this._fanDegree = 210; 
+		} else {
+			this._fanDegree = value;
+		}
+	}
 
     /**
      * Returns the font scaling.
@@ -190,6 +201,16 @@ export default class Configuration
         return this._showColorGradients;
     }
 
+	/**
+     * Returns whether to show or hide the children.
+     *
+     * @return {boolean}
+     */
+	get showChildren()
+	{
+		return this._showChildren;
+	}
+
     /**
      * Sets whether to show or hide a color gradient above each arc or display male/female colors instead.
      *
@@ -198,6 +219,19 @@ export default class Configuration
     set showColorGradients(value)
     {
         this._showColorGradients = value;
+    }
+
+	/**
+     * Sets whether to show or hide the children.
+     *
+     * @param {boolean} value Either true or false
+     */
+	set showChildren(value)
+	{
+		this._showChildren = value;
+		if (value && this._fanDegree > 210) {
+			this._fanDegree = 210;
+		}
     }
 
     /**

@@ -30,6 +30,7 @@ export class FanChart
      * @param {number}   options.fontScale
      * @param {boolean}  options.hideEmptySegments
      * @param {boolean}  options.showColorGradients
+	 * @param {boolean}  options.showChildren
      * @param {boolean}  options.showParentMarriageDates
      * @param {boolean}  options.showImages
      * @param {boolean}  options.showSilhouettes
@@ -51,6 +52,7 @@ export class FanChart
             options.fontScale,
             options.hideEmptySegments,
             options.showColorGradients,
+			options.showChildren,
             options.showParentMarriageDates,
             options.showImages,
             options.showSilhouettes,

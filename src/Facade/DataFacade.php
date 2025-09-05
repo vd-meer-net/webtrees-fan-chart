@@ -103,22 +103,79 @@ class DataFacade
         /** @var Family|null $family */
         $family = $individual->childFamilies()->first();
 
-        if ($family === null) {
-            return $node;
-        }
+		if ($family !== null) {
 
-        // Recursively call the method for the parents of the individual
-        $fatherNode = $this->buildTreeStructure($family->husband(), $generation + 1);
-        $motherNode = $this->buildTreeStructure($family->wife(), $generation + 1);
+			// Recursively call the method for the parents of the individual
+			$fatherNode = $this->buildTreeStructure($family->husband(), $generation + 1);
+			$motherNode = $this->buildTreeStructure($family->wife(), $generation + 1);
 
-        // Add an array of child nodes
-        if ($fatherNode instanceof Node) {
-            $node->addParent($fatherNode);
-        }
+			// Add an array of child nodes
+			if ($fatherNode instanceof Node) {
+				$node->addParent($fatherNode);
+			}
 
-        if ($motherNode instanceof Node) {
-            $node->addParent($motherNode);
-        }
+			if ($motherNode instanceof Node) {
+				$node->addParent($motherNode);
+			}
+		}
+
+		if ($generation == 1) {
+			$nodes                      = [];
+			$nodes[$individual->xref()] = new Node(
+				$this->getNodeData($generation, $individual)
+			);
+				
+			// Get spouse families
+			$families = $individual->spouseFamilies();
+
+			if ($families->count() > 0) {
+				/** @var Family $family */
+				foreach ($families as $familyIndex => $family) {
+					$children = [];
+					$spouse   = null;
+
+					$spouse = $family->spouse($individual);
+	
+					foreach ($family->children() as $child) {
+						$children[$child->xref()]=array();
+						$children[$child->xref()]['data'] = $this->getNodeData(-2, $child);
+					}
+	
+					// If there is more than one family for an individual, but not all spouses are known, a
+					// "fake" spouse must still be added here. So that when drawing the tree, the children
+					// can be assigned to the correct family and spouse.
+					if (
+						($spouse !== null)
+						|| ($families->count() > 1)
+					) {
+						$snode = new Node(
+							$this->getNodeData(-1, $spouse, $individual)
+						);
+	
+						$snode
+							->setChildren(array_values($children));
+	
+						$nodes[] = $snode;
+	
+						$node->setPartner($snode);
+
+						// Add spouse to list
+						//$nodes[$individual->xref()]->addSpouse($node->getData()->getId());
+						//$node->addSpouse($snode);
+					} else {
+						// If there is no spouse, merge all children from all families
+						// of the individual into one list
+						$nodes[$individual->xref()]
+							->setChildren(
+								array_merge(
+									$nodes[$individual->xref()]->getChildren(),
+									array_values($children)
+								)
+							);
+					}
+				}
+			}
+		}
 
         return $node;
     }

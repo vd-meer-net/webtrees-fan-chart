@@ -45,6 +45,20 @@ export default class Geometry
         return -(this._configuration.fanDegree / 2 * MATH_DEG2RAD);
     }
 
+	/**
+     * @return {number}
+     *
+     * @private
+     */
+	get startChildPi()
+	{
+		if (this._configuration.fanDegree === 90) {
+			return 0;
+		}
+
+        return ((this._configuration.fanDegree / 2 + 10) * MATH_DEG2RAD);
+	}
+
     /**
      * @return {number}
      *
@@ -59,6 +73,20 @@ export default class Geometry
         return (this._configuration.fanDegree / 2 * MATH_DEG2RAD);
     }
 
+	/**
+     * @return {number}
+     *
+     * @private
+     */
+	get endChildPi()
+	{
+		if (this._configuration.fanDegree === 90) {
+			return (this._configuration.fanDegree * MATH_DEG2RAD);
+		}
+
+		return -((this._configuration.fanDegree / 2 + 10) * MATH_DEG2RAD)+MATH_PI2;
+    }
+
     /**
      * Scale the angles linear across the circle.
      *
@@ -67,6 +95,16 @@ export default class Geometry
     get scale()
     {
         return d3.scaleLinear().range([this.startPi, this.endPi]);
+    }
+
+	/**
+     * Scale the angles linear across the circle.
+     *
+     * @return {number}
+     */
+	get childScale()
+	{
+        return d3.scaleLinear().range([this.startChildPi, this.endChildPi]);
     }
 
     /**
@@ -80,6 +118,11 @@ export default class Geometry
     {
         if (depth === 0) {
             return 0;
+        }
+
+		if (depth < 0) {
+            return ((Math.abs(depth)-1) * this._configuration.outerArcHeight*1.5)
+                + this._configuration.centerCircleRadius;
         }
 
         if (depth <= this._configuration.numberOfInnerCircles) {
@@ -105,6 +148,11 @@ export default class Geometry
     {
         if (depth === 0) {
             return this._configuration.centerCircleRadius;
+        }
+
+		if (depth < 0) {
+            return (Math.abs(depth) * this._configuration.outerArcHeight*1.5)
+                + this._configuration.centerCircleRadius;
         }
 
         if (depth <= this._configuration.numberOfInnerCircles) {
@@ -158,6 +206,18 @@ export default class Geometry
         return Math.max(this.startPi, Math.min(this.endPi, this.scale(value)));
     }
 
+	/**
+     * Calculates the angle in radians.
+     *
+     * @param {number} value The starting point of the rectangle
+     *
+     * @return {number}
+     */
+    calcChildAngle(value)
+    {
+        return Math.max(this.startChildPi, Math.min(this.endChildPi, this.childScale(value)));
+    }
+
     /**
      * Gets the start angle in radians.
      *
@@ -168,6 +228,10 @@ export default class Geometry
      */
     startAngle(depth, x0)
     {
+		if (depth < 0) {
+			return this.calcChildAngle(x0);
+		}
+
         // Starting from the left edge (x0) of the rectangle
         return (depth === 0) ? 0 : this.calcAngle(x0);
     }
@@ -182,6 +246,10 @@ export default class Geometry
      */
     endAngle(depth, x1)
     {
+		if (depth < 0) {
+			return this.calcChildAngle(x1);
+		}
+
         // Starting from the right edge (x1) of the rectangle
         return (depth === 0) ? MATH_PI2 : this.calcAngle(x1);
     }

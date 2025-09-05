@@ -46,6 +46,17 @@ use MagicSunday\Webtrees\FanChart\Configuration;
             </small>
         </div>
 
+		<div class="mt-3">
+            <?=
+                view($moduleName . '::modules/components/checkbox', [
+                    'name'      => 'showChildren',
+                    'label'     => I18N::translate('Show children'),
+                    'checked'   => $configuration->getShowChildren(),
+                    'unchecked' => '0',
+                ])
+            ?>
+        </div>
+
         <div class="mt-3">
             <?=
                 view($moduleName . '::modules/components/checkbox', [

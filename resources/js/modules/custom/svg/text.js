@@ -214,7 +214,7 @@ export default class Text
         }
 
         // Marriage date
-        if (this._configuration.showParentMarriageDates && datum.children && (datum.depth < 5)) {
+        if (this._configuration.showParentMarriageDates && datum.children && (datum.depth < 5) && (datum.depth > 0)) {
             const parentId = d3.select(parent.node().parentNode).attr("id");
             const pathId = this.createPathDefinition(parentId, 4, datum);
             const textPath = parent
@@ -553,7 +553,8 @@ export default class Text
     isInnerLabel(data)
     {
         // Note: The center element does not belong to the inner labels!
-        return ((data.depth > 0) && (data.depth <= this._configuration.numberOfInnerCircles));
+        return ((data.depth > 0) && (data.depth <= this._configuration.numberOfInnerCircles)) 
+		|| ((data.depth < 0) && (data.x1-data.x0 >= 0.25));
     }
 
     /**
@@ -580,7 +581,7 @@ export default class Text
         let relativeRadius  = this._geometry.relativeRadius(data.depth, this.getTextOffset(positionFlipped, index));
 
         // Special treatment for center marriage date position
-        if (this._configuration.showParentMarriageDates && (index === 4) && (data.depth < 1)) {
+        if (this._configuration.showParentMarriageDates && (index === 4) && (data.depth == 0)) {
             startAngle = this._geometry.calcAngle(data.x0);
             endAngle   = this._geometry.calcAngle(data.x1);
         }
@@ -618,8 +619,9 @@ export default class Text
      */
     isPositionFlipped(depth, x0, x1)
     {
-        if ((this._configuration.fanDegree !== 360) || (depth <= 1)) {
-            return false;
+        if (depth < 0) { return true; }
+        if ((this._configuration.fanDegree !== 360) || (Math.abs(depth) <= 1)) {
+			return false;
         }
 
         const startAngle = this._geometry.startAngle(depth, x0);
@@ -698,7 +700,7 @@ export default class Text
         let offset = 1.0;
 
         // Special offsets for shifting the text around depending on the depth
-        switch (datum.depth) {
+        switch (Math.abs(datum.depth)) {
             case 0: offset = 1.5; break;
             case 1: offset = 6.5; break;
             case 2: offset = 3.5; break;
@@ -707,6 +709,12 @@ export default class Text
             case 5: offset = 1.5; break;
             case 6: offset = 0.5; break;
         }
+
+		if (datum.depth < 0) {
+			if ((offset*3.2) > Math.abs(that._geometry.startAngle(datum.depth, datum.x0)-that._geometry.endAngle(datum.depth, datum.x1))*MATH_RAD2DEG) {
+				offset=Math.abs(that._geometry.startAngle(datum.depth, datum.x0)-that._geometry.endAngle(datum.depth, datum.x1))*MATH_RAD2DEG/3.2;
+			}
+		}
 
         let mapIndexToOffset = d3.scaleLinear()
             .domain([0, countElements - 1])
@@ -721,12 +729,11 @@ export default class Text
                 d3.select(this).attr("dy", (offsetRotate * 15) + (15 / 2) + "px");
             } else {
                 d3.select(this).attr("transform", function () {
-                    let dx        = datum.x1 - datum.x0;
-                    let angle     = that._geometry.scale(datum.x0 + (dx / 2)) * MATH_RAD2DEG;
-                    let rotate    = angle - (offsetRotate * (angle > 0 ? -1 : 1));
+                    let angle     = (that._geometry.startAngle(datum.depth, datum.x0)+that._geometry.endAngle(datum.depth, datum.x1))/2*MATH_RAD2DEG;
+                    let rotate    = angle - (offsetRotate * ((angle > 0 && angle < 180) ? -1 : 1));
                     let translate = (that._geometry.centerRadius(datum.depth) - (that._configuration.colorArcWidth / 2.0));
 
-                    if (angle > 0) {
+					if (angle > 0 && angle < 180) {
                         rotate -= 90;
                     } else {
                         translate = -translate;

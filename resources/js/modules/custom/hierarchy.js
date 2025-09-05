@@ -80,6 +80,35 @@ export default class Hierarchy
         this._nodes = partitionLayout(this._root)
             .descendants();
 
+		if (this._configuration.showChildren) {
+			// create a list of partners and their children 
+			const root = d3.hierarchy(datum, d => {
+				if (d.partners) {
+					return d.partners.map(p => ({
+						...p,
+						children: p.children ? p.children.map(c => ({
+							...c,
+						})) : []
+					}));
+				}
+				return d.children ? d.children.map(c => ({
+					...c,
+				})) : null;
+			}).count();
+
+
+			let nodes2 = partitionLayout(root)
+				.descendants();
+
+			// copy all nodes except the root and make depth negative 
+			nodes2.forEach((d, i) => {
+				if (d.depth > 0) {
+					d.depth*=-1;	
+					this._nodes.push(d);
+				}
+			});
+		}
+
         // Assign a unique ID to each node
         this._nodes.forEach((d, i) => {
             d.id = i;
