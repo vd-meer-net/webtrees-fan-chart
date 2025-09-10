@@ -132,7 +132,6 @@ class DataFacade
 				/** @var Family $family */
 				foreach ($families as $familyIndex => $family) {
 					$children = [];
-					$spouse   = null;
 
 					$spouse = $family->spouse($individual);
 	
@@ -184,16 +183,20 @@ class DataFacade
      * Get the node data required for display the chart.
      *
      * @param int        $generation The generation the person belongs to
-     * @param Individual $individual The current individual
+     * @param Individual|null $individual The current individual
      *
      * @return NodeData
      */
     private function getNodeData(
         int $generation,
-        Individual $individual
+        ?Individual $individual
     ): NodeData {
         // Create a unique ID for each individual
         static $id = 0;
+
+		$treeData = new NodeData();
+
+		if ($individual === null ) {return $treeData;}
 
         $nameProcessor  = new NameProcessor($individual);
         $dateProcessor  = new DateProcessor($individual);
@@ -202,7 +205,6 @@ class DataFacade
         $fullNN          = $nameProcessor->getFullName();
         $alternativeName = $nameProcessor->getAlternateName($individual);
 
-        $treeData = new NodeData();
         $treeData
             ->setId(++$id)
             ->setGeneration($generation)
