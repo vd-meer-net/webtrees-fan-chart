@@ -7,9 +7,9 @@
 **This project is no longer maintained and has been discontinued.**
 
 The functionality originally developed here has been fully implemented in the official upstream repository:  
-[username/upstream-project](https://github.com/username/upstream-project)
+[MagicSunday/webtrees-fan-chart](https://github.com/magicsunday/webtrees-fan-chart)
 
-Starting from version `x.x.x` of the upstream project, you can use their native implementation.
+Starting from version [3.3.0](https://github.com/magicsunday/webtrees-fan-chart/releases/tag/3.3.0) of the upstream project, you can use their native implementation.
 
 ## What does this mean?
 
