@@ -2,115 +2,30 @@
 [![License](https://img.shields.io/github/license/magicsunday/webtrees-fan-chart)](https://github.com/magicsunday/webtrees-fan-chart/blob/main/LICENSE)
 [![CI](https://github.com/magicsunday/webtrees-fan-chart/actions/workflows/ci.yml/badge.svg)](https://github.com/magicsunday/webtrees-fan-chart/actions/workflows/ci.yml)
 
+# ⚠️ Project archived – Functionality now in upstream
 
-<!-- TOC -->
-* [Fan chart](#fan-chart)
-  * [Installation](#installation)
-    * [Manual installation](#manual-installation)
-    * [Using Composer](#using-composer)
-      * [Latest version](#latest-version)
-    * [Using Git](#using-git)
-  * [Configuration](#configuration)
-  * [Usage](#usage)
-  * [Development](#development)
-    * [Run tests](#run-tests)
-<!-- TOC -->
+**This project is no longer maintained and has been discontinued.**
 
+The functionality originally developed here has been fully implemented in the official upstream repository:  
+[username/upstream-project](https://github.com/username/upstream-project)
 
-# Fan chart
-This module provides an SVG ancestor fan chart for the [webtrees](https://www.webtrees.net) genealogy application.
+Starting from version `x.x.x` of the upstream project, you can use their native implementation.
 
-![210 Degree chart with opened contextmenu](assets/fan-chart-210-contextmenu.png)
-![210 Degree chart with color gradients and hidden empty segments](assets/fan-chart-210-gradient.png)
+## What does this mean?
 
+- This repository is now **read-only** and archived
+- No further updates, bug fixes, or security patches will be made here
+- Issues and pull requests are disabled
+- The code remains available for historical reference
 
-## Installation
-Requires Webtrees 2.2.
+## Why was this project stopped?
 
-There are several ways to install the module. The method using [composer](#using-composer) is suitable
-for experienced users, as a developer you can also use [git](#using-git) to get a copy of the repository. For all other users,
-however, manual installation is recommended.
+The goal of this project was to provide functionality that was missing upstream. Now that the upstream project has incorporated this feature, maintaining a separate fork or implementation is no longer necessary.
 
-### Manual installation
-To manually install the module, perform the following steps:
+## Thank you
 
-1. Download the [latest release](https://github.com/magicsunday/webtrees-fan-chart/releases/latest) of the module.
-2. Upload the downloaded file to your web server.
-3. Unzip the package into your ``modules_v4`` directory.
-4. Rename the folder to ``webtrees-fan-chart``
+Thank you to everyone who  used this project. Your support was greatly appreciated!
 
-If everything was successful, you should see a subdirectory ``webtrees-fan-chart`` with the unpacked content
-in the ``modules_v4`` directory.
+---
 
-Then follow the steps described in [configuration](#configuration) and [usage](#usage).
-
-
-### Using Composer
-Typically, to install with [composer](https://getcomposer.org/), run the following command from the command line,
-from the root of your Webtrees installation.
-
-```shell
-composer require magicsunday/webtrees-fan-chart --update-no-dev
-```
-
-The module will automatically install into the ``modules_v4`` directory of your Webtrees installation.
-
-To remove the module run:
-```shell
-composer remove magicsunday/webtrees-fan-chart --update-no-dev
-```
-
-Then follow the steps described in [configuration](#configuration) and [usage](#usage).
-
-#### Latest version
-If you are using the development version of Webtrees (main branch), you may also need to install the development
-version of the module. For this, please use the following command:
-```
-composer require magicsunday/webtrees-fan-chart:dev-master --update-no-dev
-```
-
-
-### Using Git
-If you are using ``git``, you could also clone the current master branch directly into your ``modules_v4`` directory
-by calling:
-
-```shell
-git clone https://github.com/magicsunday/webtrees-fan-chart.git modules_v4/webtrees-fan-chart
-```
-
-Then follow the steps described in [configuration](#configuration) and [usage](#usage).
-
-
-## Configuration
-Go to the control panel (admin section) of your installation and scroll down to the ``Modules`` section. Click
-on ``Charts`` (in subsection Genealogy). Enable the ``Fan chart`` custom module (optionally disable the original
-installed fan chart module) and save your settings.
-
-![Control panel - Module administration](assets/control-panel-modules.png)
-
-## Usage
-At the charts' menu, you will find a new link called `Fan chart`. Use the provided configuration options
-to adjust the layout of the charts according to your needs.
-
-Right-clicking on an individual opens a tooltip providing more detailed information of the current individual.
-
-
-## Development
-To build/update the JavaScript, run the following commands:
-
-```shell
-nvm install node
-npm install
-npm run prepare
-```
-
-
-### Run tests
-```shell
-composer update
-
-composer ci:test
-composer ci:test:php:phpstan
-composer ci:test:php:lint
-composer ci:test:php:rector
-```
+*This repository is kept for archival purposes only.*
